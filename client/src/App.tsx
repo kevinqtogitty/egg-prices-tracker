@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ThreeScene from './r3f/ThreeScene';
 import { getInternationalEggPrices, getUsEggPrices } from './requests/requests';
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
     <div className="App">
       <button onClick={fetchUsEggs}>Get US Eggs</button>
       <button onClick={fetchInternationalEggs}>Get Int Eggs</button>
+      <div className="three-canvas">
+        <ThreeScene />
+      </div>
     </div>
   );
 }
