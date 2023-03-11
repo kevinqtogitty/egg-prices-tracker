@@ -3,3 +3,12 @@
   padding: 0rem;
   box-sizing: border-box;
 }
+
+.three-canvas {
+  height: 20rem;
+  width: 20rem;
+  border: 2px solid red;
+
+  position: fixed;
+  left: calc(50vw - 10rem);
+}
