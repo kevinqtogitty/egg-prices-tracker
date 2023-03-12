@@ -8,9 +8,18 @@ title: Frying Egg
 
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { Mesh } from 'three';
 
 export function Eggs() {
+  const modelRef = useRef<Mesh>(null!);
   const { nodes, materials } = useGLTF('/frying_egg.glb');
+
+  // useFrame((root, delta) => {
+  //   modelRef.current.rotation.x += Math.cos(delta * 0.05) * 0.01;
+  //   modelRef.current.rotation.y += Math.cos(delta * 0.05) * 0.01;
+  // });
+
   return (
     <group dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
