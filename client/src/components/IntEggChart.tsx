@@ -7,7 +7,9 @@ import {
   XAxis,
   Label,
   Bar,
-  LabelList
+  LabelList,
+  ResponsiveContainer,
+  Tooltip
 } from 'recharts';
 
 interface Props {
@@ -16,36 +18,47 @@ interface Props {
 
 const IntEggChart: React.FC<Props> = ({ internationalEggPrices }) => {
   return (
-    <BarChart
-      width={730}
-      height={2000}
-      data={internationalEggPrices}
-      layout={'vertical'}
-      margin={{
-        top: 50,
-        right: 30,
-        left: 50
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <YAxis dataKey="country" type="category" fontSize={16} tickLine={false} />
-      <XAxis dataKey="price" type="number">
-        <Label
-          position="top"
-          value="Highest reported price per country in USD"
-          dy={-1940}
-          fontSize={26}
-        />
-      </XAxis>
-      <Bar
-        dataKey="price"
-        fill="#8884d8"
-        barSize={16}
-        isAnimationActive={false}
+    <ResponsiveContainer className={`int-egg-chart`} width="70%" height={2100}>
+      <BarChart
+        data={internationalEggPrices}
+        layout={'vertical'}
+        margin={{
+          top: 170,
+          right: 50,
+          left: 50
+        }}
       >
-        <LabelList dataKey="price" position="right" fontSize={20} />
-      </Bar>
-    </BarChart>
+        <YAxis
+          dataKey="country"
+          type="category"
+          fontSize={16}
+          tickLine={false}
+        />
+        <XAxis dataKey="price" type="number" tick={false}>
+          <Label
+            position="top"
+            value="Highest price per country in USD"
+            dy={-1940}
+            fontSize={50}
+          />
+        </XAxis>
+        <Tooltip
+          wrapperStyle={{
+            border: '.5px solid black',
+            outline: 'none',
+            fontSize: '1.5rem'
+          }}
+        />
+        <Bar
+          dataKey="price"
+          fill="#8884d8"
+          barSize={16}
+          isAnimationActive={false}
+        >
+          <LabelList dataKey="price" position="right" fontSize={20} />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 
