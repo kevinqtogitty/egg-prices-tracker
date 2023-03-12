@@ -1,35 +1,55 @@
-import { useState } from 'react';
-import ThreeScene from './r3f/ThreeScene';
 import { getInternationalEggPrices, getUsEggPrices } from './requests/requests';
+import IntEggChart from './components/IntEggChart';
+import UsEggChart from './components/UsEggChart';
+import { useEffect, useState } from 'react';
+import ThreeScene from './r3f/ThreeScene';
+
+export interface INTERFACE_UsEggPrices {
+  date: string;
+  price: number;
+}
+export interface INTERFACE_IntEggPrices {
+  country: string;
+  price: number;
+}
 
 function App() {
-  const [usEggPrices, setUsEggPrices] = useState();
-  const [internationalEggPrices, setInternationalEggPrices] = useState();
+  const [usEggPrices, setUsEggPrices] = useState<INTERFACE_UsEggPrices[]>();
+  const [internationalEggPrices, setInternationalEggPrices] =
+    useState<INTERFACE_IntEggPrices[]>();
 
-  const fetchUsEggs = async () => {
-    try {
-      const data = await getUsEggPrices();
-      setUsEggPrices(data);
-    } catch (e) {
-      console.log('error here');
-    }
-  };
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        const data = await Promise.all([
+          getUsEggPrices(),
+          getInternationalEggPrices()
+        ]);
+        setUsEggPrices(data[0]);
+        setInternationalEggPrices(data[1]);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchAll();
+    return;
+  }, []);
 
-  const fetchInternationalEggs = async () => {
-    try {
-      const data = await getInternationalEggPrices();
-      setInternationalEggPrices(data);
-    } catch (e) {
-      console.log('error here');
-    }
-  };
   return (
     <div className="App">
-      <button onClick={fetchUsEggs}>Get US Eggs</button>
-      <button onClick={fetchInternationalEggs}>Get Int Eggs</button>
-      <div className="three-canvas">
+      <h1 className="h1">How Much Is My Egg?</h1>
+      {usEggPrices ? (
+        <h2 className="h2">
+          Average price in the US today: $
+          {usEggPrices![usEggPrices!.length - 1].price}
+        </h2>
+      ) : null}
+
+      {/* <div className="three-canvas">
         <ThreeScene />
-      </div>
+      </div> */}
+      <UsEggChart usEggPrices={usEggPrices!} />
+      <IntEggChart internationalEggPrices={internationalEggPrices!} />
     </div>
   );
 }
