@@ -1,7 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 * {
   margin: 0rem;
   padding: 0rem;
   box-sizing: border-box;
+  font-family: 'VT323', monospace;
+}
+
+body {
+  border: 2px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* position: relative; */
+}
+
+.h1 {
+  font-size: 8rem;
+}
+
+.h2 {
+  font-size: 4rem;
 }
 
 .three-canvas {
@@ -9,6 +28,6 @@
   width: 20rem;
   border: 2px solid red;
 
-  position: fixed;
+  position: absolute;
   left: calc(50vw - 10rem);
 }
