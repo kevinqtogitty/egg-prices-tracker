@@ -21,7 +21,10 @@ app.get('/csv', (req: Request, res: Response): void => {
   fs.createReadStream('./public/docs/eggs.csv')
     .pipe(csvParser())
     .on('data', (data) => {
-      result.push({ date: data.DATE, price: Number(data.APU0000708111) });
+      result.push({
+        date: data.DATE,
+        price: Number(data.APU0000708111).toFixed(2)
+      });
     })
     .on('end', () => {
       res.json(result);
