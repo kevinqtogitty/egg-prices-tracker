@@ -3,6 +3,7 @@ import IntEggChart from './components/IntEggChart';
 import UsEggChart from './components/UsEggChart';
 import { useEffect, useState } from 'react';
 import ThreeScene from './r3f/ThreeScene';
+import { a, useSpring } from '@react-spring/web';
 
 export interface INTERFACE_UsEggPrices {
   date: string;
@@ -17,6 +18,9 @@ function App() {
   const [usEggPrices, setUsEggPrices] = useState<INTERFACE_UsEggPrices[]>();
   const [internationalEggPrices, setInternationalEggPrices] =
     useState<INTERFACE_IntEggPrices[]>();
+  const [finishedFetching, setFinishedFetching] = useState(false);
+  const [showCharts, setShowCharts] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -27,6 +31,14 @@ function App() {
         ]);
         setUsEggPrices(data[0]);
         setInternationalEggPrices(data[1]);
+        (() => {
+          setTimeout(() => {
+            setFinishedFetching(true);
+          }, 1000);
+          setTimeout(() => {
+            setShowCharts(true);
+          }, 2000);
+        })();
       } catch (e) {
         console.log(e);
       }
@@ -35,21 +47,55 @@ function App() {
     return;
   }, []);
 
+  const spring = useSpring({
+    top: finishedFetching ? 'calc(0$ - 0rem)' : 'calc(50% - 10rem)',
+    right: finishedFetching ? 'calc(0$ - 0rem)' : 'calc(50% - 10rem)'
+  });
+
+  const buttonSpring = useSpring({
+    transform: toggle ? 'translateX(100%)' : 'translateX(0%)'
+  });
+
   return (
     <div className="App">
-      <h1 className="h1">How Much Is My Egg?</h1>
-      {usEggPrices ? (
+      <div>
+        <h1 className="h1">How Much Is My Egg?</h1>
         <h2 className="h2">
-          Average price in the US today: $
-          {usEggPrices![usEggPrices!.length - 1].price}
+          Avg. price per dozen in the US today:
+          {showCharts ? (
+            <span style={{ color: 'green' }}>
+              {' '}
+              ${usEggPrices![usEggPrices!.length - 1].price}
+            </span>
+          ) : (
+            <span> ...</span>
+          )}
         </h2>
-      ) : null}
-
-      {/* <div className="three-canvas">
+      </div>
+      <button
+        className={`toggle-button`}
+        onClick={() => setToggle((state) => !state)}
+      >
+        <span className={`${toggle ? 'null' : 'toggle-text-active'}`}>
+          US Prices
+        </span>
+        <span className={`${toggle ? 'toggle-text-active' : 'null'}`}>
+          INT. Prices
+        </span>
+        <a.div style={buttonSpring} />
+      </button>
+      <a.div style={spring} className="three-canvas">
         <ThreeScene />
-      </div> */}
-      <UsEggChart usEggPrices={usEggPrices!} />
-      <IntEggChart internationalEggPrices={internationalEggPrices!} />
+        {finishedFetching ? null : <h2 className="h2-loading">Loading...</h2>}
+      </a.div>
+
+      {showCharts ? (
+        toggle ? (
+          <IntEggChart internationalEggPrices={internationalEggPrices!} />
+        ) : (
+          <UsEggChart usEggPrices={usEggPrices!} />
+        )
+      ) : null}
     </div>
   );
 }
