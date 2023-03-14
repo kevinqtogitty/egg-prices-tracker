@@ -5,6 +5,7 @@
   padding: 0rem;
   box-sizing: border-box;
   font-family: 'VT323', monospace;
+  /* color: #e1d9d1; */
 }
 
 body {
@@ -13,7 +14,7 @@ body {
   flex-direction: column;
   padding: 0rem 1rem;
   /* align-items: center; */
-
+  background-color: #030201;
   /* position: relative; */
 }
 
@@ -30,6 +31,7 @@ body {
   width: 100%;
   /* border: 2px solid red; */
   align-self: flex-end;
+  color: #e1d9d1;
 }
 
 .h1 {
@@ -59,6 +61,7 @@ body {
   margin-top: 4rem;
   align-self: center;
   color: rgba(200, 200, 200, 1);
+  border-radius: 5px;
 }
 
 .toggle-text-active {
