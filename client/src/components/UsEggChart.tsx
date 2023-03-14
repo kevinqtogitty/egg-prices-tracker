@@ -35,6 +35,7 @@ const UsEggChart: React.FC<Props> = ({ usEggPrices }) => {
           dy={30}
           dx={-25}
           fontSize={20}
+          tick={{ fill: '#e1d9d1' }}
         >
           <Label
             value="Avg. Price Per Dozen"
@@ -42,9 +43,10 @@ const UsEggChart: React.FC<Props> = ({ usEggPrices }) => {
             position="top"
             dy={-230}
             fontSize={50}
+            fill={'#e1d9d1'}
           />
         </XAxis>
-        <YAxis dataKey="price">
+        <YAxis dataKey="price" tick={{ fill: '#e1d9d1' }}>
           <Label
             value="US Dollars"
             offset={0}
@@ -52,19 +54,21 @@ const UsEggChart: React.FC<Props> = ({ usEggPrices }) => {
             angle={-90}
             dy={50}
             fontSize={20}
+            fill={'#e1d9d1'}
           />
         </YAxis>
         <Tooltip
           wrapperStyle={{
             border: '.5px solid black',
             outline: 'none',
-            fontSize: '1.5rem'
+            fontSize: '1.5rem',
+            color: '#000'
           }}
         />
         <Line
           type="monotone"
           dataKey="price"
-          stroke="#8884d8"
+          stroke="#ffcc5f"
           strokeWidth={2}
           activeDot={{ r: 6 }}
           isAnimationActive={false}
