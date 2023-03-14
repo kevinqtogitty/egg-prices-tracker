@@ -33,29 +33,39 @@ const IntEggChart: React.FC<Props> = ({ internationalEggPrices }) => {
           type="category"
           fontSize={16}
           tickLine={false}
+          tick={{ fill: '#e1d9d1' }}
         />
-        <XAxis dataKey="price" type="number" tick={false}>
+        <XAxis dataKey="price" type="number" tick={{ fill: '#e1d9d1' }}>
           <Label
             position="top"
             value="Highest price per country in USD"
             dy={-1940}
             fontSize={50}
+            fill={'#e1d9d1'}
           />
         </XAxis>
         <Tooltip
+          cursor={{ fill: 'none' }}
           wrapperStyle={{
             border: '.5px solid black',
             outline: 'none',
-            fontSize: '1.5rem'
+            fontSize: '1.5rem',
+            color: '#000',
+            backgroundColor: 'rgb(200,200,50)'
           }}
         />
         <Bar
           dataKey="price"
-          fill="#8884d8"
+          fill="#ffcc5f"
           barSize={16}
           isAnimationActive={false}
         >
-          <LabelList dataKey="price" position="right" fontSize={20} />
+          <LabelList
+            dataKey="price"
+            position="right"
+            fontSize={20}
+            fill={'#e1d9d1'}
+          />
         </Bar>
       </BarChart>
     </ResponsiveContainer>
