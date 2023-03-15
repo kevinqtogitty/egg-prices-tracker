@@ -2,7 +2,6 @@ import { INTERFACE_IntEggPrices } from '../App';
 import React from 'react';
 import {
   BarChart,
-  CartesianGrid,
   YAxis,
   XAxis,
   Label,
@@ -14,11 +13,15 @@ import {
 
 interface Props {
   internationalEggPrices: INTERFACE_IntEggPrices[];
+  windowWidth: Number;
 }
 
-const IntEggChart: React.FC<Props> = ({ internationalEggPrices }) => {
+const IntEggChart: React.FC<Props> = ({
+  internationalEggPrices,
+  windowWidth
+}) => {
   return (
-    <ResponsiveContainer className={`int-egg-chart`} width="70%" height={2100}>
+    <ResponsiveContainer className={`int-egg-chart`} width="80%" height={2100}>
       <BarChart
         data={internationalEggPrices}
         layout={'vertical'}
@@ -38,9 +41,10 @@ const IntEggChart: React.FC<Props> = ({ internationalEggPrices }) => {
         <XAxis dataKey="price" type="number" tick={{ fill: '#e1d9d1' }}>
           <Label
             position="top"
-            value="Highest price per country in USD"
+            value="Int prices in USD"
             dy={-1940}
-            fontSize={50}
+            dx={windowWidth < 1000 ? -25 : 0}
+            fontSize={`${windowWidth < 1000 ? 30 : 50}`}
             fill={'#e1d9d1'}
           />
         </XAxis>
