@@ -105,3 +105,19 @@ body {
   left: calc(50vw - 35%);
   align-self: center;
 }
+
+@media (max-width: 1200px) {
+  .App {
+    row-gap: 0rem;
+  }
+
+  .three-canvas {
+    display: none;
+  }
+
+  .h1,
+  .h2 {
+    text-align: center;
+    margin-top: 2rem;
+  }
+}
