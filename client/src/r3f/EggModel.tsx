@@ -8,7 +8,7 @@ title: Egg! Danny Devit-yolk
 
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { Group, Mesh } from 'three';
+import { Group } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
