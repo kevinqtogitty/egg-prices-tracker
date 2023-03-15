@@ -1,7 +1,6 @@
+import React from 'react';
 import { OrbitControls, OrthographicCamera } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import React from 'react';
-import { Eggs } from './3dModel';
 import { EggModel } from './EggModel';
 
 const ThreeScene = () => {
