@@ -18,9 +18,16 @@ function App() {
   const [usEggPrices, setUsEggPrices] = useState<INTERFACE_UsEggPrices[]>();
   const [internationalEggPrices, setInternationalEggPrices] =
     useState<INTERFACE_IntEggPrices[]>();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [finishedFetching, setFinishedFetching] = useState(false);
   const [showCharts, setShowCharts] = useState(false);
   const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    addEventListener('resize', (event) => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, []);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -91,9 +98,12 @@ function App() {
 
       {showCharts ? (
         toggle ? (
-          <IntEggChart internationalEggPrices={internationalEggPrices!} />
+          <IntEggChart
+            internationalEggPrices={internationalEggPrices!}
+            windowWidth={windowWidth}
+          />
         ) : (
-          <UsEggChart usEggPrices={usEggPrices!} />
+          <UsEggChart usEggPrices={usEggPrices!} windowWidth={windowWidth} />
         )
       ) : null}
     </div>
