@@ -1,5 +1,5 @@
 import { INTERFACE_UsEggPrices } from '../App';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   CartesianGrid,
   Label,
@@ -13,11 +13,12 @@ import {
 
 interface Props {
   usEggPrices: INTERFACE_UsEggPrices[];
+  windowWidth: Number;
 }
 
-const UsEggChart: React.FC<Props> = ({ usEggPrices }) => {
+const UsEggChart: React.FC<Props> = ({ usEggPrices, windowWidth }) => {
   return (
-    <ResponsiveContainer width="60%" height={400} className={`us-egg-chart`}>
+    <ResponsiveContainer width="80%" height={400} className={`us-egg-chart`}>
       <LineChart
         height={350}
         data={usEggPrices}
@@ -36,13 +37,15 @@ const UsEggChart: React.FC<Props> = ({ usEggPrices }) => {
           dx={-25}
           fontSize={20}
           tick={{ fill: '#e1d9d1' }}
+          interval={'preserveEnd'}
         >
           <Label
-            value="Avg. Price Per Dozen"
+            value="Price per dozen"
             offset={0}
             position="top"
             dy={-230}
-            fontSize={50}
+            dx={windowWidth < 1000 ? -25 : 0}
+            fontSize={`${windowWidth < 1000 ? 30 : 50}`}
             fill={'#e1d9d1'}
           />
         </XAxis>
@@ -61,7 +64,9 @@ const UsEggChart: React.FC<Props> = ({ usEggPrices }) => {
           wrapperStyle={{
             border: '.5px solid black',
             outline: 'none',
-            fontSize: '1.5rem',
+            fontSize: '1.5rem'
+          }}
+          itemStyle={{
             color: '#000'
           }}
         />
